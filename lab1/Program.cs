@@ -1,14 +1,27 @@
-﻿using System;
+using System;
 
 public class Tape
 {
     int[] tape;
     int length;
+    private static int count = 0;
+
+    public int Length
+    {
+        get { return length; }
+        set { length = value; }
+    }
+
+    public static int Count
+    {
+        get { return count; }
+    }
 
     public Tape(int length)
     {
         this.length = length;
         this.tape = new int[this.length];
+        count++;
     }
 
     public void StoreValue(int[] binaryNumber)
@@ -25,6 +38,7 @@ public class Tape
 
         for (int i = 0; i < binaryNumber.Length; i++)
             this.tape[i] = binaryNumber[i];
+        count++;
     }
 
     public int[] JustAdd(int[] binaryNumber1, int[] binaryNumber2)
@@ -75,14 +89,11 @@ public class Tape
         {
             int div = binaryNumber1[i] - binaryNumber2[i];
             res[i] = div;
- 
+
         }
         return res;
 
     }
-
-
-
 }
 
 
@@ -96,6 +107,11 @@ public class Program
         int[] binaryNumber1 = { 1, 0, 1, 1, 0, 0, 1, 1 };
         int[] binaryNumber2 = { 1, 0, 1, 0, 1, 0, 0, 1 };
 
+      
+        Console.WriteLine("Binary number 1: {0}", string.Join("", binaryNumber1));
+        Console.WriteLine("Binary number 2: {0}", string.Join("", binaryNumber2));
+       
+
         tape.StoreValue(binaryNumber1);
         tape.StoreValue(binaryNumber2);
         int[] res1 = tape.Add(binaryNumber1, binaryNumber2);
@@ -104,6 +120,11 @@ public class Program
         Console.WriteLine("The result of the simple addition is: {0}", string.Join("", res2));
         int[] res3 = tape.Deduct(binaryNumber1, binaryNumber2);
         Console.WriteLine("The result of the deduction is: {0}", string.Join("", res3));
-        
+
+        tape.Length = 10;
+        Console.WriteLine("Length of new tape: {0}", tape.Length);
+
+        int count = Tape.Count;
+        Console.WriteLine("Amount of created tapes: {0}", count);
     }
 }
