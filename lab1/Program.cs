@@ -44,7 +44,8 @@ public class Tape
     public int[] JustAdd(int[] binaryNumber1, int[] binaryNumber2)
     {
         int[] res = new int[this.length];
-        for (int i = 0; i < binaryNumber1.Length; i++)
+
+        for (int i = binaryNumber1.Length-1; i>=0 ; i--)
         {
             int sum = binaryNumber1[i] + binaryNumber2[i];
             res[i] = sum;
@@ -55,19 +56,24 @@ public class Tape
     public int[] Add(int[] binaryNumber1, int[] binaryNumber2)
     {
         
-        int[] result = new int[this.length];
+        int[] result = new int [this.length];
 
         int carry = 0;
-        for (int i = 0; i < this.length; i++)
+        for (int i = binaryNumber1.Length-1; i >= 0; i--)
         {
             int sum = binaryNumber1[i] + binaryNumber2[i] + carry;
 
-            if (sum == 0 || sum == 1)
+            if ( sum == 1)
             {
             result[i] = sum;
             carry = 0;
         }
-            else if (sum == 2)
+            else if(sum == 0)
+            {
+                result[i] = 0;
+                carry = 0;
+            }
+            else if (sum == 2 )
         {
             result[i] = 0;
             carry = 1;
@@ -77,15 +83,24 @@ public class Tape
             result[i] = 1;
             carry = 1;
         }
+         
     }
-
+        if (carry == 1)
+        {
+            int[] newR= new int[result.Length + 1];
+            newR[0] = 1;
+            Array.Copy(result, 0, newR, 1, result.Length);
+            result = newR;
+        }
         return result;
+        
+       
     }
 
     public int[] Deduct(int[] binaryNumber1, int[] binaryNumber2)
     {
         int[] res = new int[this.length];
-        for (int i = 0; i < binaryNumber1.Length; i++)
+        for (int i = binaryNumber1.Length-1; i >= 0; i--)
         {
             int div = binaryNumber1[i] - binaryNumber2[i];
             res[i] = div;
